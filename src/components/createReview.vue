@@ -10,10 +10,10 @@
 					<div class="right">
 						<b-form-input 
 							id="input-1"
-							placeholder="Вкажіть ваше прізвище ти ім'я"
-							v-model="name"
-							:state="state"
+							placeholder="Вкажіть ваше прізвище та ім’я"
+							v-model="fullname"
 							trim
+							:disabled="anonymity"
 						/>
 						<div class="checkbox-wrap">
 							<input type="checkbox" id="check" name="check" v-model="anonymity" />
@@ -26,7 +26,11 @@
 						Оцініть роботу лікаря <span class="require">*</span>
 					</div>
 					<div class="right">
-						<set-star-rating @rating="rating = $event"/>
+						<set-star-rating
+							:key="keySetStarRating"
+							:rating="rating"
+							@rating="rating = $event"
+						/>
 					</div>
 				</b-row>
 				<b-row class="my-1 p-1">
@@ -38,17 +42,31 @@
 							id="textarea"
 							v-model="text"
 							placeholder="Вкажіть відгук до 500 символів"
-							rows="3"
-							max-rows="6"
+							rows="5"
+							max-rows="7"
+							trim
 						/>
 					</div>
 				</b-row>
 				 <b-row align-h="between" class="my-1 p-3 pb-0">
 					<b-col cols="3">
-						<b-button variant="primary">Очистити</b-button>
+						<b-button 
+							variant="primary"
+							:disabled="!isChangingAnyField || loading"
+							@click="setEmptyFields"
+						>
+							Очистити
+						</b-button>
 					</b-col>
 					<b-col cols="3">
-						<b-button variant="success" class="text-white">Надіслати</b-button>
+						<b-button
+							variant="success" 
+							class="text-white"
+							:disabled="!isFieldsFull || loading"
+							@click="sendReview"
+						>
+							Надіслати
+						</b-button>
 					</b-col>
 				</b-row>
 			</div>
@@ -60,28 +78,61 @@ import setStarRating from '@/components/setStarRating.vue'
 
 export default {
 	name: 'CreateReview',
+	props:{
+		loading: { type: Boolean, default: false }
+	},
 	components:{
 		setStarRating
 	},
 	data() {
 		return {
+			keySetStarRating: 1,
 			anonymity: false,
-			name: '',
+			fullname: '',
 			text:'',
 			rating: 0
 		}
 	},
+	watch: {
+		anonymity(val){	if(val) this.fullname = '' }
+	},
 	computed: {
       state() {
-        return this.name.length >= 4
+        return this.fullname.length >= 4
       },
       invalidFeedback() {
-        if (this.name.length > 0) {
+        if (this.fullname.length > 0) {
           return 'Enter at least 4 characters.'
         }
         return 'Please enter something.'
-      }
+      },
+	  isFieldsFull(){
+		const { fullname, text, rating, anonymity } = this.$data;
+		return anonymity 
+				? !!text && !!rating 
+				: !!fullname && !!text && !!rating
+	  },
+	  isChangingAnyField(){
+		const { fullname, text, rating, anonymity } = this.$data;
+		
+		return fullname || text || rating || anonymity;
+	  }
     },
+	methods:{
+		setEmptyFields(){
+			this.fullname = '';
+			this.text = '';
+			this.rating = 0;
+			this.anonymity = false;
+			this.keySetStarRating++;
+		},
+		sendReview(){
+			const { fullname, text, rating, anonymity } = this.$data;
+			const data = { text, rating	};
+			data.fullname = anonymity ? 'Анонім' : fullname;
+			this.$emit('sendReview', data);
+		}
+	}
 }
 </script>
 <style lang="less" scoped>

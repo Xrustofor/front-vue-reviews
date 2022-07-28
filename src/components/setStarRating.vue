@@ -1,13 +1,17 @@
 <template>
-	<ul class="set-star-rating p-0">
+	<ul 
+		class="set-star-rating p-0"
+		@mouseleave="mouseLeave"
+	>
 		<li 
 			v-for="(item, key) in items"
 			:key="`star-${key}`"
 			@click="changeRating(key)"
+			@mouseenter="mouseHover(key)"
 		>
 			<div class="h1 mb-0">
 				<b-icon :icon="`star${item.isTruth ? '-fill' : ''}`" variant="warning" size="lg"/>
-				<span class="text-primary">{{item.text}}</span>
+				<span :class="`text-${item.isTruth?'primary': 'black'}`">{{item.text}}</span>
 			</div>
 		</li>
 	</ul>
@@ -38,6 +42,12 @@ export default {
 				arr.push({...item, isTruth: index <= key})
 				return arr
 			},[])
+		},
+		mouseHover(index){
+			this.items = this.setRating(index);
+		},
+		mouseLeave(){
+			this.items = this.setRating(this.rating - 1);
 		}
 	}
 }
