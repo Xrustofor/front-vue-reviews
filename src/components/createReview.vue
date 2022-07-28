@@ -43,8 +43,13 @@
 						/>
 					</div>
 				</b-row>
-				<b-row class="my-1 p-3 pb-0">
-					<b-button>Відправити</b-button>
+				 <b-row align-h="between" class="my-1 p-3 pb-0">
+					<b-col cols="3">
+						<b-button variant="primary">Очистити</b-button>
+					</b-col>
+					<b-col cols="3">
+						<b-button variant="success" class="text-white">Надіслати</b-button>
+					</b-col>
 				</b-row>
 			</div>
 		</b-form-group>

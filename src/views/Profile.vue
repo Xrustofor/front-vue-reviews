@@ -4,13 +4,13 @@
 			<b-card-group deck>
 				<b-card bg-variant="white" text-variant="white">
 					<div class="bg-primary text-light p-2 text-center p-0">
-						<h3 class="m-0">ПРОФІЛЬ ЛІКАРЯ</h3>
+						<h3 class="m-0 header-title">Профіль лікаря</h3>
 					</div>
 					<div class="text-black d-flex mt-2 mb-4">
 						<h3 
 							class="mb-0 d-flex align-items-center"
 						>
-							Тестова Оксана Василівна
+							{{`Тестова Оксана Василівна`.toLocaleUpperCase()}}
 						</h3>
 						<star-rating
 							class="text-black mx-2"
@@ -68,6 +68,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+	.header-title{
+		text-transform: uppercase;
+	}
 	.avatar{
 		border: 1px solid #ccc;
 		height: 219px;
