@@ -10,7 +10,14 @@ export default new Vuex.Store({
   },
   getters:{
     getLoading(state){ return state.loading},
-    getReviews(state){ return state.reviews}
+    getReviews(state){ return state.reviews},
+    getRatingRound(state){
+      const result = state.reviews.reduce(
+        (mean, item) => mean + item.rating / state.reviews.length, 
+        0
+      )
+      return Math.round(result);
+    }
   },
   mutations: {
     setLoading(state, payload){ state.loading = payload },

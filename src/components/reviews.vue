@@ -2,6 +2,7 @@
 	<div>
 		<ul class="reviews p-1">
 			<li 
+				class="my-2 p-2"
 				v-for="(item, key) in items"
 				:key="`item-review-${key}`"
 				v-show="showAll ? true : key <= 4 "
@@ -59,6 +60,8 @@ export default {
 		li{
 			display: flex;
 			flex-direction: column;
+			border: 1px solid #ccc;
+			border-radius: 5px;
 		}
 		.top{
 			display: flex;

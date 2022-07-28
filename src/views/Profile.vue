@@ -67,13 +67,11 @@ export default {
 		createReview,
 		Reviews
 	},
-	data:() => ({
-		rating: 3
-	}),
 	computed:{
 		...mapGetters({
 			loading: 'getLoading',
 			reviews: 'getReviews',
+			rating: 'getRatingRound'
 		})
 	},
 	methods:{
