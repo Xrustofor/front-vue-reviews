@@ -59,7 +59,7 @@ import createReview from '@/components/createReview.vue'
 export default {
 	components:{
 		starRating,
-		createReview
+		createReview,
 	},
 	data:() => ({
 		rating: 3

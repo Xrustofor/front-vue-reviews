@@ -17,7 +17,7 @@
 						/>
 						<div class="checkbox-wrap">
 							<input type="checkbox" id="check" name="check" v-model="anonymity" />
-							<label for="check">Анонімно</label>
+							<label class="text-primary" for="check">Анонімно</label>
 						</div>
 					</div>
 				</b-row>
@@ -25,7 +25,9 @@
 					<div class="left">
 						Оцініть роботу лікаря <span class="require">*</span>
 					</div>
-					<div class="right"></div>
+					<div class="right">
+						<set-star-rating @rating="rating = $event"/>
+					</div>
 				</b-row>
 				<b-row class="my-1 p-1">
 					<div class="left">
@@ -49,13 +51,19 @@
 	</div>
 </template>
 <script>
+import setStarRating from '@/components/setStarRating.vue'
+
 export default {
 	name: 'CreateReview',
+	components:{
+		setStarRating
+	},
 	data() {
 		return {
 			anonymity: false,
 			name: '',
 			text:'',
+			rating: 0
 		}
 	},
 	computed: {
