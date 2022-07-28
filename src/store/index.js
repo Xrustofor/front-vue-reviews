@@ -26,6 +26,7 @@ export default new Vuex.Store({
   actions: {
     async setPostReviews({commit}, payload){
       const { fullname, rating, text } = payload;
+      let access = false;
       try{
 
         if(Object.values(payload).some((p) => p === undefined)){
@@ -33,7 +34,7 @@ export default new Vuex.Store({
         }
         commit('setLoading', true);
 
-        const result = new Promise((resolve, reject) => {
+        await new Promise((resolve, reject) => {
           setTimeout(
             () => {
               const options = {
@@ -49,13 +50,14 @@ export default new Vuex.Store({
             },
             500
           );
-        });
-        
-        result.then((res) => {
-          console.log(res);
+        }).then((res) => {
           commit('setLoading', false);
           commit('setReviews', res)
+          access = true;
         });
+
+        return access;
+
       }catch(e){
         console.log(e)
       }

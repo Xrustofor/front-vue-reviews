@@ -44,6 +44,7 @@
 						<create-review
 							class="mt-3"
 							:loading="loading"
+							:key="createReviewKey"
 							@sendReview="sendReview"
 						/>
 					</b-col>
@@ -67,6 +68,11 @@ export default {
 		createReview,
 		Reviews
 	},
+	data(){
+		return {
+			createReviewKey: 1
+		}
+	},
 	computed:{
 		...mapGetters({
 			loading: 'getLoading',
@@ -78,8 +84,11 @@ export default {
 		...mapActions([
 			'setPostReviews'
 		]),
-		sendReview(data){
-			this.setPostReviews(data);
+		async sendReview(data){
+			const result = await this.setPostReviews(data);
+			if(result){
+				this.createReviewKey += 1
+			}
 		}
 	}
 	
