@@ -86,10 +86,19 @@ export default {
 		]),
 		async sendReview(data){
 			const result = await this.setPostReviews(data);
+			
 			if(result){
 				this.createReviewKey += 1
+				this.toast();
 			}
-		}
+		},
+
+		toast() {
+        	this.$notify({
+				title: 'Iнформація',
+				text: 'Відгук успішно добавленний.'
+			});
+      	}
 	}
 	
 }
