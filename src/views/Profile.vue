@@ -32,12 +32,16 @@
 							</b-row>
 							<b-row class="information">
 								<div class="left">Місце роботи</div>
-								<div class="right">Львів, площа Ринокб 10</div>
+								<div class="right">Львів, площа Ринок 10</div>
 							</b-row>
 							<b-row class="information">
 								<div class="left">Заклад</div>
 								<div class="right text-primary">Відділення надання екстреної допомоги черговим лікарем у закладі стаціонарної допомоги імені Пилипіва Юрія</div>
 							</b-row>
+
+							<create-review
+								class="mt-3"
+							/>
 						</b-col>
 					</b-row>
 
@@ -50,10 +54,12 @@
 <script>
 
 import starRating from '@/components/starRating.vue'
+import createReview from '@/components/createReview.vue'
 
 export default {
 	components:{
-		starRating
+		starRating,
+		createReview
 	},
 	data:() => ({
 		rating: 3
