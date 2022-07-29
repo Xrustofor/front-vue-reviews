@@ -45,6 +45,7 @@
 							placeholder="Вкажіть відгук до 500 символів"
 							rows="5"
 							max-rows="7"
+							:state="isValidText"
 							trim
 						/>
 					</div>
@@ -106,11 +107,16 @@ export default {
 		if(this.fullname.length > 3 ) return true;
 		if(this.fullname.length === 0 || this.fullname.length <= 3 ) return null;
       },
+	  isValidText() {
+		if(this.text.length >= 500 ) return false;
+		if(this.text.length > 3 ) return true;
+		if(this.text.length === 0 || this.fullname.length <= 3 ) return null;
+      },
 	  isFieldsFull(){
-		const { fullname, text, rating, anonymity } = this.$data;
+		const { text, rating, anonymity } = this.$data;
 		return anonymity 
 				? !!text && !!rating 
-				: (!!this.isValidFullname) && !!text && !!rating
+				: !!this.isValidFullname && !!this.isValidText && !!rating
 	  },
 	  isChangingAnyField(){
 		const { fullname, text, rating, anonymity } = this.$data;
