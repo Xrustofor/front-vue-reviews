@@ -12,8 +12,9 @@
 							id="input-1"
 							placeholder="Вкажіть ваше прізвище та ім’я"
 							v-model="fullname"
-							trim
 							:disabled="anonymity"
+							:state="isValidFullname"
+							trim
 						/>
 						<div class="checkbox-wrap">
 							<input type="checkbox" id="check" name="check" v-model="anonymity" />
@@ -100,17 +101,16 @@ export default {
       state() {
         return this.fullname.length >= 4
       },
-      invalidFeedback() {
-        if (this.fullname.length > 0) {
-          return 'Enter at least 4 characters.'
-        }
-        return 'Please enter something.'
+      isValidFullname() {
+		if(this.fullname.length >= 50 ) return false;
+		if(this.fullname.length > 3 ) return true;
+		if(this.fullname.length === 0 || this.fullname.length <= 3 ) return null;
       },
 	  isFieldsFull(){
 		const { fullname, text, rating, anonymity } = this.$data;
 		return anonymity 
 				? !!text && !!rating 
-				: !!fullname && !!text && !!rating
+				: (!!this.isValidFullname) && !!text && !!rating
 	  },
 	  isChangingAnyField(){
 		const { fullname, text, rating, anonymity } = this.$data;
