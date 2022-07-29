@@ -105,12 +105,12 @@ export default {
       isValidFullname() {
 		if(this.fullname.length >= 50 ) return false;
 		if(this.fullname.length > 3 ) return true;
-		if(this.fullname.length === 0 || this.fullname.length <= 3 ) return null;
+		return null;
       },
 	  isValidText() {
 		if(this.text.length >= 500 ) return false;
 		if(this.text.length > 3 ) return true;
-		if(this.text.length === 0 || this.fullname.length <= 3 ) return null;
+		return null;
       },
 	  isFieldsFull(){
 		const { text, rating, anonymity } = this.$data;
