@@ -113,9 +113,9 @@ export default {
 		return null;
       },
 	  isFieldsFull(){
-		const { text, rating, anonymity } = this.$data;
+		const { rating, anonymity } = this.$data;
 		return anonymity 
-				? !!text && !!rating 
+				? !!this.isValidText && !!rating 
 				: !!this.isValidFullname && !!this.isValidText && !!rating
 	  },
 	  isChangingAnyField(){
